@@ -68,7 +68,7 @@ canvas#bgc{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.7;}
 }
 .brand-main{
   font-family:'Syne',sans-serif;
-  font-size:1.05rem;
+  font-size:1.2rem;
   font-weight:800;
   letter-spacing:3px;
   text-transform:uppercase;
@@ -336,7 +336,7 @@ nav.solid{background:rgba(5,1,10,.9);border-bottom-color:rgba(139,92,246,.22);bo
   opacity:.8;
 }
 /* Mobile: show icons in fixed positions around image */
-@media(max-width:900px){
+/*@media(max-width:900px){
   .fi{
     --dx:var(--mdx);
     --dy:var(--mdy);
@@ -350,11 +350,11 @@ nav.solid{background:rgba(5,1,10,.9);border-bottom-color:rgba(139,92,246,.22);bo
 @media(max-width:600px){
   .fi-card{width:48px;height:48px;border-radius:12px;}
   .fi-inner span{font-size:.8rem;}
-}
+}*/
 
 /* ── MARQUEE ── */
 .mq{height:50px;position:relative;z-index:1;overflow:hidden;display:flex;align-items:center;border-top:1px solid rgba(139,92,246,.1);border-bottom:1px solid rgba(139,92,246,.1);background:rgba(5,1,10,.6);}
-.mqt{display:flex;white-space:nowrap;flex-shrink:0;animation:mqs 12s linear infinite;}
+.mqt{display:flex;white-space:nowrap;flex-shrink:0;animation:mqs 5s linear infinite;}
 .mqt span{font-family:'Pinyon Script',cursive;font-size:1.5rem;color:rgba(168,85,247,.42);padding:0 32px;}
 .mqt .d{color:rgba(139,92,246,.22);padding:0 6px;font-family:serif;font-size:1rem;}
 @keyframes mqs{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
