@@ -52,13 +52,18 @@ canvas#bgc{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.7;}
   position:relative;
 }
 .brand-k{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Syne',sans-serif;
   font-size:.72rem;
-  font-weight:300;
-  letter-spacing:8px;
+  font-weight:800;
+  letter-spacing:4px;
   text-transform:uppercase;
-  color:rgba(196,132,252,.7);
-  font-style:italic;
+  background:linear-gradient(135deg,#fff 0%,#e9d5ff 30%,#c084fc 55%,#fff 75%,#a855f7 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  filter:drop-shadow(0 1px 0 rgba(255,255,255,.3)) drop-shadow(0 0 10px rgba(139,92,246,.5));
+  animation:brandShine 4s ease-in-out infinite;
   margin-bottom:1px;
 }
 .brand-main{
@@ -172,17 +177,14 @@ nav.solid{background:rgba(5,1,10,.9);border-bottom-color:rgba(139,92,246,.22);bo
 }
 .hn{
   font-family:'Syne',sans-serif;
-  font-size:clamp(3.5rem,10vw,7rem);
-  font-weight:800;line-height:.88;
+  font-size:clamp(2.4rem,7.5vw,7rem);
+  font-weight:800;line-height:.92;
   background:linear-gradient(135deg,#fff 25%,var(--p3) 65%,var(--p2) 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   opacity:0;animation:fadeUp .9s .35s forwards;
-  word-break:keep-all;
-}
-.hrole{
-  font-size:clamp(.75rem,1.8vw,.9rem);letter-spacing:clamp(2px,.5vw,4px);
-  color:var(--p3);font-weight:500;
-  opacity:0;animation:fadeUp .8s .5s forwards;
+  word-break:normal;
+  overflow-wrap:break-word;
+  width:100%;
 }
 .hbio{
   font-size:clamp(.88rem,1.5vw,1rem);line-height:1.85;
@@ -248,44 +250,111 @@ nav.solid{background:rgba(5,1,10,.9);border-bottom-color:rgba(139,92,246,.22);bo
 @keyframes float3{0%,100%{transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) translateY(0);}50%{transform:translate(var(--dx),var(--dy)) rotate(calc(var(--rot) + 3deg)) translateY(-12px);}}
 @keyframes float4{0%,100%{transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) translateY(0);}50%{transform:translate(var(--dx),var(--dy)) rotate(calc(var(--rot) - 6deg)) translateY(-7px);}}
 
+/* ── 3D FLOATING ICONS ── */
+.fi{
+  position:absolute;z-index:6;
+  transform:translate(var(--dx),var(--dy));
+  opacity:0;
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+.fi:nth-child(1){animation:fi0 1s .6s forwards;}
+.fi:nth-child(2){animation:fi0 1s .75s forwards;}
+.fi:nth-child(3){animation:fi0 1s .9s forwards;}
+.fi:nth-child(4){animation:fi0 1s 1.05s forwards;}
+@keyframes fi0{to{opacity:1;}}
+
+/* 3D card - like reference image */
 .fi-card{
-  width:clamp(52px,7vw,68px);height:clamp(52px,7vw,68px);
-  border-radius:14px;border:1px solid;
+  width:clamp(58px,8vw,76px);
+  height:clamp(58px,8vw,76px);
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.15);
   display:flex;align-items:center;justify-content:center;
-  backdrop-filter:blur(16px);
   position:relative;z-index:2;
-  transition:transform .3s,box-shadow .3s;
-  box-shadow:0 8px 32px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);
+  transform-style:preserve-3d;
+  /* 3D layered look */
+  box-shadow:
+    0 2px 0 1px rgba(255,255,255,0.08),
+    0 6px 0 2px rgba(0,0,0,0.5),
+    0 10px 0 3px rgba(0,0,0,0.3),
+    0 14px 20px rgba(0,0,0,0.6),
+    0 0 30px rgba(139,92,246,0.3);
+  transition:transform .3s ease,box-shadow .3s ease;
   overflow:hidden;
+  cursor:default;
+  /* Slight 3D tilt for depth */
+  transform:perspective(300px) rotateX(8deg) rotateY(-8deg);
 }
 .fi-inner{
   width:100%;height:100%;
   display:flex;align-items:center;justify-content:center;
-  border-radius:13px;
+  border-radius:15px;
+  position:relative;z-index:2;
 }
 .fi-inner span{
   font-weight:900;
-  font-size:clamp(.9rem,1.5vw,1.15rem);
+  font-size:clamp(.95rem,1.6vw,1.2rem);
   font-family:'Space Grotesk',sans-serif;
   letter-spacing:-0.5px;
+  text-shadow:0 1px 3px rgba(0,0,0,0.5);
 }
-/* Shine overlay */
 .fi-shine{
-  position:absolute;inset:0;border-radius:13px;
-  background:linear-gradient(135deg,rgba(255,255,255,.18) 0%,transparent 50%,rgba(255,255,255,.04) 100%);
-  pointer-events:none;
+  position:absolute;inset:0;border-radius:15px;
+  background:linear-gradient(
+    135deg,
+    rgba(255,255,255,0.35) 0%,
+    rgba(255,255,255,0.1) 30%,
+    transparent 60%,
+    rgba(0,0,0,0.1) 100%
+  );
+  pointer-events:none;z-index:3;
+}
+/* Side face for 3D depth illusion */
+.fi-card::before{
+  content:'';
+  position:absolute;
+  bottom:-8px;left:4px;right:4px;height:8px;
+  background:rgba(0,0,0,0.5);
+  border-radius:0 0 8px 8px;
+  transform:rotateX(-90deg);
+  transform-origin:top;
+}
+.fi-card::after{
+  content:'';
+  position:absolute;
+  top:0;right:-6px;width:6px;height:100%;
+  background:rgba(0,0,0,0.3);
+  border-radius:0 8px 8px 0;
+  transform:rotateY(90deg);
+  transform-origin:left;
 }
 .fi-glow{
-  position:absolute;width:90px;height:90px;
+  position:absolute;width:100px;height:100px;
   top:50%;left:50%;transform:translate(-50%,-50%);
   border-radius:50%;pointer-events:none;z-index:1;
-  opacity:.7;animation:glowPulse 3s ease-in-out infinite;
+  opacity:.8;
 }
-.fi:hover .fi-card{transform:scale(1.12) translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.6),0 0 24px currentColor;}
+/* Mobile: show icons in fixed positions around image */
+@media(max-width:900px){
+  .fi{
+    --dx:var(--mdx);
+    --dy:var(--mdy);
+  }
+  .fi-card{
+    width:54px;height:54px;
+    border-radius:14px;
+  }
+  .fi-inner span{font-size:.88rem;}
+}
+@media(max-width:600px){
+  .fi-card{width:48px;height:48px;border-radius:12px;}
+  .fi-inner span{font-size:.8rem;}
+}
 
 /* ── MARQUEE ── */
 .mq{height:50px;position:relative;z-index:1;overflow:hidden;display:flex;align-items:center;border-top:1px solid rgba(139,92,246,.1);border-bottom:1px solid rgba(139,92,246,.1);background:rgba(5,1,10,.6);}
-.mqt{display:flex;white-space:nowrap;flex-shrink:0;animation:mqs 24s linear infinite;}
+.mqt{display:flex;white-space:nowrap;flex-shrink:0;animation:mqs 12s linear infinite;}
 .mqt span{font-family:'Pinyon Script',cursive;font-size:1.5rem;color:rgba(168,85,247,.42);padding:0 32px;}
 .mqt .d{color:rgba(139,92,246,.22);padding:0 6px;font-family:serif;font-size:1rem;}
 @keyframes mqs{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
@@ -453,7 +522,8 @@ footer p{color:var(--wd);font-size:.74rem;letter-spacing:2px;margin-top:6px;}
 @media(max-width:900px){
   nav{padding:12px max(16px,4vw);}.nl{display:none;}.hbg{display:flex;}
   .hcontent{grid-template-columns:1fr;text-align:center;gap:32px;}
-  .hleft{align-items:center;}
+  .hleft{align-items:center;width:100%;max-width:100%;}
+  .hn{font-size:clamp(2.2rem,11vw,4rem);text-align:center;width:100%;padding:0;}
   .hbio{text-align:center;}
   .hbtns{justify-content:center;}
   .hcenter{width:min(280px,75vw);margin:0 auto;}
@@ -798,40 +868,74 @@ if(skg)new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.targe
   const glowBg=document.getElementById('heroGlowBg');
   const heroSec=document.getElementById('hero');
 
+  // Individual scroll speeds and rotation axes per icon
+  const iconConfigs=[
+    {sx:-1,sy:0.8,rx:1,ry:-1,rz:0.5},
+    {sx:1,sy:0.6,rx:-1,ry:1,rz:-0.5},
+    {sx:-0.8,sy:1,rx:0.8,ry:0.8,rz:0.3},
+    {sx:0.9,sy:-0.7,rx:-0.8,ry:-0.8,rz:-0.3},
+  ];
+
+  let scrollY=0,targetScrollY=0,rafRunning=false;
+
+  function lerp(a,b,t){return a+(b-a)*t;}
+
+  function applyIconTransform(icon,cfg,progress,mouseX,mouseY){
+    const base3DX=8,base3DY=-8;
+    const scrollRotX=progress*180*cfg.rx;
+    const scrollRotY=progress*180*cfg.ry;
+    const scrollRotZ=progress*90*cfg.rz;
+    const scrollTY=progress*40*cfg.sy;
+    const scrollTX=progress*20*cfg.sx;
+    const mouseRotX=mouseY*8;
+    const mouseRotY=mouseX*8;
+
+    icon.style.transform=`
+      translate(var(--dx),var(--dy))
+      translateX(${scrollTX}px)
+      translateY(${scrollTY}px)
+      perspective(500px)
+      rotateX(${base3DX+scrollRotX+mouseRotX}deg)
+      rotateY(${base3DY+scrollRotY+mouseRotY}deg)
+      rotateZ(${scrollRotZ}deg)
+    `;
+  }
+
+  let mx=0,my=0;
   if(!isMob){
     let raf=null;
     window.addEventListener('mousemove',e=>{
       if(raf)return;
       raf=requestAnimationFrame(()=>{
-        const x=(e.clientX/window.innerWidth-.5);
-        const y=(e.clientY/window.innerHeight-.5);
-        if(heroImg)heroImg.style.transform=`translate(${x*6}px,${y*5}px)`;
-        if(glowBg)glowBg.style.transform=`translate(calc(-50% + ${x*25}px),calc(-50% + ${y*18}px))`;
+        mx=(e.clientX/window.innerWidth-.5)*2;
+        my=(e.clientY/window.innerHeight-.5)*2;
+        if(heroImg)heroImg.style.transform=`translate(${mx*6}px,${my*5}px)`;
+        if(glowBg)glowBg.style.transform=`translate(calc(-50% + ${mx*25}px),calc(-50% + ${my*18}px))`;
         icons.forEach((ic,i)=>{
-          const d=i%2===0?1:-1;
-          const sp=.5+i*.12;
-          const ix=parseFloat(ic.style.getPropertyValue('--dx')||ic.style.cssText.match(/--dx:([^;]+)/)?.[1]||0);
-          const iy=parseFloat(ic.style.getPropertyValue('--dy')||0);
-          ic.style.setProperty('--px',`${x*18*sp*d}px`);
-          ic.style.setProperty('--py',`${y*12*sp}px`);
+          const cfg=iconConfigs[i]||iconConfigs[0];
+          const hh=heroSec.offsetHeight;
+          const prog=Math.max(0,Math.min(1,window.scrollY/hh));
+          applyIconTransform(ic,cfg,prog,mx,my);
         });
         raf=null;
       });
     },{passive:true});
-
-    window.addEventListener('scroll',()=>{
-      const sy=window.scrollY;
-      const hh=heroSec.offsetHeight;
-      if(sy>hh*1.2)return;
-      const p=sy/hh;
-      if(heroImg)heroImg.style.transform=`translateY(${p*25}px)`;
-      icons.forEach((ic,i)=>{
-        const d=i%2===0?-1:1;
-        ic.style.transform=`translate(var(--dx),calc(var(--dy) + ${p*30*d*(i*.15+.8)}px)) rotate(calc(var(--rot) + ${p*15*d}deg))`;
-      });
-    },{passive:true});
   }
+
+  window.addEventListener('scroll',()=>{
+    const sy=window.scrollY;
+    const hh=heroSec.offsetHeight;
+    const progress=Math.max(0,Math.min(1,sy/Math.max(hh,1)));
+
+    if(heroImg&&!isMob)heroImg.style.transform=`translateY(${progress*25}px)`;
+
+    icons.forEach((ic,i)=>{
+      const cfg=iconConfigs[i]||iconConfigs[0];
+      applyIconTransform(ic,cfg,progress,mx,my);
+    });
+  },{passive:true});
 })();
+  
 
 /* ── ABOUT TILT ── */
 const aii=document.getElementById('aii');
