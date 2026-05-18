@@ -224,6 +224,7 @@ nav.solid{background:rgba(5,1,10,.9);border-bottom-color:rgba(139,92,246,.22);bo
 /* Hero center - image + floating icons */
 .hcenter{
   position:relative;
+  overflow:visible;
   width:clamp(320px,48vw,560px);
   flex-shrink:0;
   display:flex;align-items:flex-end;justify-content:center;
@@ -383,7 +384,10 @@ to{opacity:1;}
   .fi-inner span{font-size:.8rem;}
 }*/
 @media(max-width:900px){
-
+.fi{
+    position:absolute;
+    z-index:10;
+}
 .fi-card{
 width:58px;
 height:58px;
@@ -396,26 +400,26 @@ font-size:.9rem;
 
 /* TOP LEFT */
 .fi:nth-child(1){
---dx:-60px;
---dy:-150px;
+--dx:-30px;
+--dy:-60px;
 }
 
 /* TOP RIGHT */
 .fi:nth-child(2){
---dx:60px;
---dy:-150px;
+--dx:30px;
+--dy:-60px;
 }
 
 /* BOTTOM LEFT */
 .fi:nth-child(3){
---dx:-50px;
---dy:100px;
+--dx:-30px;
+--dy:60px;
 }
 
 /* BOTTOM RIGHT */
 .fi:nth-child(4){
---dx:50px;
---dy:100px;
+--dx:30px;
+--dy:60px;
 }
 
 }
