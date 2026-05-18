@@ -263,6 +263,7 @@ nav.solid{background:rgba(5,1,10,.9);border-bottom-color:rgba(139,92,246,.22);bo
   opacity:0;
   transform-style:preserve-3d;
   will-change:transform;
+  transform:translateZ(0);
 }
 .fi:nth-child(1){animation:fi0 1s .6s forwards;}
 .fi:nth-child(2){animation:fi0 1s .75s forwards;}
@@ -673,7 +674,7 @@ footer p{color:var(--wd);font-size:.74rem;letter-spacing:2px;margin-top:6px;}
     </div>
 
     <div class="hcenter" id="hcenter">
-      <div class="fi" data-label="After Effects" style="--dx:-260px;--dy:-70px;--rot:-5deg;--mdx:-115px;--mdy:-240px;">
+      <div class="fi" data-label="After Effects" style="--dx:-260px;--dy:-70px;--rot:-5deg;--mdx:-58px;--mdy:-240px;">
   <div class="fi-card" style="background:#00005C22;border-color:#9999FF55;">
     <div class="fi-inner" style="background:linear-gradient(135deg,#00005C,#00005C99);">
       <span style="color:#9999FF;">Ae</span>
@@ -682,7 +683,7 @@ footer p{color:var(--wd);font-size:.74rem;letter-spacing:2px;margin-top:6px;}
   </div>
   <div class="fi-glow" style="background:radial-gradient(circle,#9999FF33,transparent 70%);"></div>
 </div>
-<div class="fi" data-label="Premiere Pro" style="--dx:230px;--dy:-50px;--rot:5deg;--mdx:115px;--mdy:-235px;">
+<div class="fi" data-label="Premiere Pro" style="--dx:230px;--dy:-50px;--rot:5deg;--mdx:58px;--mdy:-235px;">
   <div class="fi-card" style="background:#00005C22;border-color:#9999FF55;">
     <div class="fi-inner" style="background:linear-gradient(135deg,#00005C,#00005C99);">
       <span style="color:#9999FF;">Pr</span>
@@ -691,7 +692,7 @@ footer p{color:var(--wd);font-size:.74rem;letter-spacing:2px;margin-top:6px;}
   </div>
   <div class="fi-glow" style="background:radial-gradient(circle,#9999FF33,transparent 70%);"></div>
 </div>
-<div class="fi" data-label="Photoshop" style="--dx:-190px;--dy:100px;--rot:8deg;--mdx:-130px;--mdy:40px;">
+<div class="fi" data-label="Photoshop" style="--dx:-190px;--dy:100px;--rot:8deg;--mdx:-60px;--mdy:40px;">
   <div class="fi-card" style="background:#001E3622;border-color:#31A8FF55;">
     <div class="fi-inner" style="background:linear-gradient(135deg,#001E36,#001E3699);">
       <span style="color:#31A8FF;">Ps</span>
@@ -700,7 +701,7 @@ footer p{color:var(--wd);font-size:.74rem;letter-spacing:2px;margin-top:6px;}
   </div>
   <div class="fi-glow" style="background:radial-gradient(circle,#31A8FF33,transparent 70%);"></div>
 </div>
-<div class="fi" data-label="DaVinci Resolve" style="--dx:180px;--dy:110px;--rot:-8deg;--mdx:130px;--mdy:40px;">
+<div class="fi" data-label="DaVinci Resolve" style="--dx:180px;--dy:110px;--rot:-8deg;--mdx:70px;--mdy:40px;">
   <div class="fi-card" style="background:#1A003022;border-color:#9999FF55;">
     <div class="fi-inner" style="background:linear-gradient(135deg,#1A0030,#1A003099);">
       <span style="color:#9999FF;">Au</span>
@@ -933,11 +934,11 @@ if(skg)new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.targe
 
   function applyIconTransform(icon,cfg,progress,mouseX,mouseY){
     const base3DX=8,base3DY=-8;
-    const scrollRotX=progress*180*cfg.rx;
-    const scrollRotY=progress*180*cfg.ry;
-    const scrollRotZ=progress*90*cfg.rz;
-    const scrollTY=progress*40*cfg.sy;
-    const scrollTX=progress*20*cfg.sx;
+    const scrollRotX=progress*18*cfg.rx;
+    const scrollRotY=progress*18*cfg.ry;
+    const scrollRotZ=progress*8*cfg.rz;
+    const scrollTY=progress*22*cfg.sy;
+    const scrollTX=progress*10*cfg.sx;
     const mouseRotX=mouseY*8;
     const mouseRotY=mouseX*8;
 
@@ -972,20 +973,58 @@ if(skg)new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.targe
       });
     },{passive:true});
   }
+/* ULTRA SMOOTH SCROLL LOOP */
 
-  window.addEventListener('scroll',()=>{
-    const sy=window.scrollY;
-    const hh=heroSec.offsetHeight;
-    const progress=Math.max(0,Math.min(1,sy/Math.max(hh,1)));
+function animate(){
 
-    if(heroImg&&!isMob)heroImg.style.transform=`translateY(${progress*25}px)`;
+targetScrollY = window.scrollY;
 
-    icons.forEach((ic,i)=>{
-      const cfg=iconConfigs[i]||iconConfigs[0];
-      applyIconTransform(ic,cfg,progress,mx,my);
-    });
-  },{passive:true});
-})();
+scrollY = lerp(scrollY,targetScrollY,0.08);
+
+const hh = heroSec.offsetHeight;
+
+const progress = Math.max(
+0,
+Math.min(1,scrollY / Math.max(hh,1))
+);
+
+// HERO IMAGE
+if(heroImg && !isMob){
+
+```
+heroImg.style.transform = `
+  translate(
+    ${mx*6}px,
+    ${my*5 + progress*20}px
+  )
+`;
+```
+
+}
+
+// ICONS
+icons.forEach((ic,i)=>{
+
+```
+const cfg=iconConfigs[i]||iconConfigs[0];
+
+applyIconTransform(
+  ic,
+  cfg,
+  progress,
+  mx,
+  my
+);
+```
+
+});
+
+requestAnimationFrame(animate);
+
+}
+
+animate();
+
   
 
 /* ── ABOUT TILT ── */
