@@ -133,7 +133,7 @@ nav.solid{background:rgba(5,1,10,.9);border-bottom-color:rgba(139,92,246,.22);bo
 #hero{
   position:relative;min-height:100vh;
   display:flex;align-items:center;justify-content:center;
-  overflow:hidden;z-index:1;
+  overflow:visible;z-index:1;
   padding:80px max(20px,5vw) 40px;
 }
 .hero-glow-bg{
@@ -162,6 +162,11 @@ nav.solid{background:rgba(5,1,10,.9);border-bottom-color:rgba(139,92,246,.22);bo
   grid-template-columns:1fr auto;
   align-items:center;
   gap:clamp(20px,4vw,60px);
+}
+.hcontent,
+.hcenter,
+.hleft{
+  overflow:visible;
 }
 .hleft{
   display:flex;flex-direction:column;gap:clamp(12px,2vw,20px);
@@ -219,7 +224,7 @@ nav.solid{background:rgba(5,1,10,.9);border-bottom-color:rgba(139,92,246,.22);bo
 /* Hero center - image + floating icons */
 .hcenter{
   position:relative;
-  width:clamp(260px,38vw,420px);
+  width:clamp(320px,48vw,560px);
   flex-shrink:0;
   display:flex;align-items:flex-end;justify-content:center;
 }
@@ -526,7 +531,7 @@ footer p{color:var(--wd);font-size:.74rem;letter-spacing:2px;margin-top:6px;}
   .hn{font-size:clamp(2.2rem,11vw,4rem);text-align:center;width:100%;padding:0;}
   .hbio{text-align:center;}
   .hbtns{justify-content:center;}
-  .hcenter{width:min(280px,75vw);margin:0 auto;}
+  .hcenter{width:min(360px,95vw);margin:0 auto;}
   /* Show icons repositioned on mobile */
   .fi{--dx:var(--mdx);--dy:var(--mdy);}
   .fi-card{width:46px;height:46px;border-radius:10px;}
@@ -543,11 +548,22 @@ footer p{color:var(--wd);font-size:.74rem;letter-spacing:2px;margin-top:6px;}
   .masonry{columns:1;}
   .brand-main{font-size:.88rem;letter-spacing:2px;}
   .brand-k{letter-spacing:5px;font-size:.58rem;}
-  .hn{font-size:clamp(3.2rem,12vw,5rem);}
+  .hn{
+  font-size:clamp(2.8rem,11vw,4.3rem);
+  line-height:.92;
+  letter-spacing:-2px;
+  text-align:center;
+}
+
+.hn .line1,
+.hn .line2{
+  display:block;
+  white-space:nowrap;
+}
   .sh{font-size:clamp(1.8rem,8vw,3rem);}
   .astat{grid-template-columns:1fr 1fr;}
   .cog{gap:28px;}
-  .hcenter{width:min(240px,80vw);}
+  .hcenter{width:min(360px,95vw);}
   .cstage{height:clamp(170px,45vw,210px);}
   .cc{width:clamp(200px,55vw,260px);height:clamp(118px,32vw,154px);margin-top:calc(clamp(118px,32vw,154px)/-2);margin-left:calc(clamp(200px,55vw,260px)/-2);}
   .cdots{max-width:160px;}
@@ -612,7 +628,10 @@ footer p{color:var(--wd);font-size:.74rem;letter-spacing:2px;margin-top:6px;}
   <div class="hcontent">
     <div class="hleft">
       <p class="htag">From Pixels to Emotion</p>
-      <h1 class="hn">KUSHAL<br>SAI.</h1>
+      <h1 class="hn">
+  <span class="line1">KUSHAL</span>
+  <span class="line2">SAI</span>
+      </h1>
       <p class="hrole">Pixel Architect · Editor · Filmmaker</p>
       <p class="hbio">Every frame holds a feeling. Every cut carries a purpose. I craft experiences that aren't just seen — but felt.</p>
       <div class="hbtns">
@@ -622,7 +641,7 @@ footer p{color:var(--wd);font-size:.74rem;letter-spacing:2px;margin-top:6px;}
     </div>
 
     <div class="hcenter" id="hcenter">
-      <div class="fi" data-label="After Effects" style="--dx:-260px;--dy:-70px;--rot:-5deg;--mdx:-110px;--mdy:-90px;">
+      <div class="fi" data-label="After Effects" style="--dx:-260px;--dy:-70px;--rot:-5deg;--mdx:-72px;--mdy:-55px;">
   <div class="fi-card" style="background:#00005C22;border-color:#9999FF55;">
     <div class="fi-inner" style="background:linear-gradient(135deg,#00005C,#00005C99);">
       <span style="color:#9999FF;">Ae</span>
@@ -631,7 +650,7 @@ footer p{color:var(--wd);font-size:.74rem;letter-spacing:2px;margin-top:6px;}
   </div>
   <div class="fi-glow" style="background:radial-gradient(circle,#9999FF33,transparent 70%);"></div>
 </div>
-<div class="fi" data-label="Premiere Pro" style="--dx:230px;--dy:-50px;--rot:5deg;--mdx:90px;--mdy:-80px;">
+<div class="fi" data-label="Premiere Pro" style="--dx:230px;--dy:-50px;--rot:5deg;--mdx:72px;--mdy:-50px;">
   <div class="fi-card" style="background:#00005C22;border-color:#9999FF55;">
     <div class="fi-inner" style="background:linear-gradient(135deg,#00005C,#00005C99);">
       <span style="color:#9999FF;">Pr</span>
@@ -640,7 +659,7 @@ footer p{color:var(--wd);font-size:.74rem;letter-spacing:2px;margin-top:6px;}
   </div>
   <div class="fi-glow" style="background:radial-gradient(circle,#9999FF33,transparent 70%);"></div>
 </div>
-<div class="fi" data-label="Photoshop" style="--dx:-190px;--dy:100px;--rot:8deg;--mdx:-105px;--mdy:80px;">
+<div class="fi" data-label="Photoshop" style="--dx:-190px;--dy:100px;--rot:8deg;--mdx:-70px;--mdy:65px;">
   <div class="fi-card" style="background:#001E3622;border-color:#31A8FF55;">
     <div class="fi-inner" style="background:linear-gradient(135deg,#001E36,#001E3699);">
       <span style="color:#31A8FF;">Ps</span>
@@ -649,7 +668,7 @@ footer p{color:var(--wd);font-size:.74rem;letter-spacing:2px;margin-top:6px;}
   </div>
   <div class="fi-glow" style="background:radial-gradient(circle,#31A8FF33,transparent 70%);"></div>
 </div>
-<div class="fi" data-label="Audition" style="--dx:180px;--dy:110px;--rot:-8deg;--mdx:95px;--mdy:85px;">
+<div class="fi" data-label="DaVinci Resolve" style="--dx:180px;--dy:110px;--rot:-8deg;--mdx:70px;--mdy:65px;">
   <div class="fi-card" style="background:#1A003022;border-color:#9999FF55;">
     <div class="fi-inner" style="background:linear-gradient(135deg,#1A0030,#1A003099);">
       <span style="color:#9999FF;">Au</span>
